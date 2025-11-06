@@ -4,7 +4,7 @@
 # r8168 is the Linux device driver released for Realtek Gigabit Ethernet
 # controllers with PCI-Express interface.
 #
-# Copyright(c) 2023 Realtek Semiconductor Corp. All rights reserved.
+# Copyright(c) 2024 Realtek Semiconductor Corp. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -48,6 +48,7 @@ ENABLE_MULTIPLE_TX_QUEUE = n
 ENABLE_RSS_SUPPORT = n
 ENABLE_LIB_SUPPORT = n
 DISABLE_WOL_SUPPORT = n
+ENABLE_GIGA_LITE = y
 
 ifneq ($(KERNELRELEASE),)
 	obj-m := r8168.o
@@ -116,6 +117,9 @@ ifneq ($(KERNELRELEASE),)
 	endif
 	ifeq ($(DISABLE_WOL_SUPPORT), y)
 		EXTRA_CFLAGS += -DDISABLE_WOL_SUPPORT
+	endif
+	ifeq ($(ENABLE_GIGA_LITE), y)
+		EXTRA_CFLAGS += -DENABLE_GIGA_LITE
 	endif
 else
 	BASEDIR := /lib/modules/$(shell uname -r)
